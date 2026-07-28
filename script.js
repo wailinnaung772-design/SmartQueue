@@ -1,11 +1,7 @@
 // Supabase Configuration
 const supabaseUrl = "https://hsxsdpbsbsrpzevhtkjv.supabase.co";
 
-const supabaseKey = "sb_publishable_ppeg_fT7D29bDGFHa5fUyA_DzhK9n9RY";
-
-
-// Create Supabase Client
-
+const supabaseKey = "sb_publishable_ppeg_fT7D29bDGFHa5fUyA_DzhK9n9R";
 
 
 const supabaseClient = supabase.createClient(
@@ -14,23 +10,55 @@ const supabaseClient = supabase.createClient(
 );
 
 
-// Get recovery session from reset link
+
+// Get recovery session
 async function getSessionFromUrl()
 {
-    const { data, error } =
-        await supabaseClient.auth.exchangeCodeForSession(
-            window.location.href
+    const hash = window.location.hash;
+
+
+    if(hash)
+    {
+        const params =
+        new URLSearchParams(
+            hash.substring(1)
         );
 
 
-    if(error)
-    {
-        console.log(error.message);
+        const access_token =
+        params.get("access_token");
+
+
+        const refresh_token =
+        params.get("refresh_token");
+
+
+        if(access_token && refresh_token)
+        {
+            const { error } =
+            await supabaseClient.auth.setSession(
+            {
+                access_token: access_token,
+                refresh_token: refresh_token
+            });
+
+
+            if(error)
+            {
+                console.log(error.message);
+            }
+            else
+            {
+                console.log("Recovery session created");
+            }
+        }
     }
 }
 
 
 getSessionFromUrl();
+
+
 
 
 
@@ -48,6 +76,7 @@ async function resetPassword()
     document.getElementById("message");
 
 
+
     if(password !== confirmPassword)
     {
         message.innerHTML =
@@ -55,6 +84,7 @@ async function resetPassword()
 
         return;
     }
+
 
 
     const { error } =
@@ -75,16 +105,18 @@ async function resetPassword()
         message.innerHTML =
         "Password updated successfully";
 
+
         document.getElementById("openApp")
         .style.display = "block";
     }
-
 }
+
+
 
 
 
 function openApp()
 {
     window.location.href =
-    "smartqueue:login";
+    "smartqueue://login";
 }
