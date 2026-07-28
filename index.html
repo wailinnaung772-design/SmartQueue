@@ -1,104 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Reset Password</title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <style>
-        body{
-            font-family: Arial;
-            background:#f8fafc;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            height:100vh;
-        }
-
-        .box{
-            background:white;
-            padding:30px;
-            border-radius:15px;
-            width:320px;
-            box-shadow:0 5px 20px #ccc;
-        }
-
-        input{
-            width:100%;
-            padding:12px;
-            margin:10px 0;
-        }
-
-        button{
-            width:100%;
-            padding:12px;
-            background:#007F5F;
-            color:white;
-            border:none;
-            border-radius:20px;
-        }
-
-        h2{
-            text-align:center;
-        }
-
-        #message{
-            text-align:center;
-            margin-top:15px;
-        }
-
-    </style>
-
+  <title>Reset Password</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: Arial;
+      background:#f8fafc;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+    }
+    .box {
+      background:white;
+      padding:30px;
+      border-radius:15px;
+      width:320px;
+      box-shadow:0 5px 20px #ccc;
+    }
+    input {
+      width:100%;
+      padding:12px;
+      margin:10px 0;
+    }
+    button {
+      width:100%;
+      padding:12px;
+      background:#007F5F;
+      color:white;
+      border:none;
+      border-radius:20px;
+    }
+    h2 { text-align:center; }
+    #message { text-align:center; margin-top:15px; }
+  </style>
 </head>
-
-
 <body>
+  <div class="box">
+    <h2>Reset Password</h2>
+    <input type="password" id="password" placeholder="New Password">
+    <input type="password" id="confirmPassword" placeholder="Confirm Password">
+    <button onclick="resetPassword()">Update Password</button>
+    <button id="openApp" style="display:none;" onclick="openApp()">Open Smart Queue App</button>
+    <p id="message"></p>
+  </div>
 
-
-<div class="box">
-
-<h2>
-Reset Password
-</h2>
-
-
-<input 
-type="password"
-id="password"
-placeholder="New Password">
-
-
-<input
-type="password"
-id="confirmPassword"
-placeholder="Confirm Password">
-
-
-<button onclick="resetPassword()">
-Update Password
-</button>
-
-
-<button 
-id="openApp"
-style="display:none;"
-onclick="openApp()">
-
-Open Smart Queue App
-
-</button>
-
-<p id="message"></p>
-
-
-</div>
-
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script src="script.js"></script>
-
-
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="script.js"></script>
 </body>
-
 </html>
