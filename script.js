@@ -1,19 +1,41 @@
-const supabaseUrl = "https://hsxsdpbsbsrpzevhtkjv.supabase.coYOUR_SUPABASE_URL";
+// Supabase Configuration
+const supabaseUrl = "https://hsxsdpbsbsrpzevhtkjv.supabase.co";
 
-const supabaseKey = "sb_publishable_ppeg_fT7D29bDGFHa5fUyA_DzhK9n9RYOUR_ANON_KEY";
+const supabaseKey = "sb_publishable_ppeg_fT7D29bDGFHa5fUyA_DzhK9n9RY";
 
 
-const supabaseClient =
-supabase.createClient(
+// Create Supabase Client
+
+
+
+const supabaseClient = supabase.createClient(
     supabaseUrl,
     supabaseKey
 );
 
 
+// Get recovery session from reset link
+async function getSessionFromUrl()
+{
+    const { data, error } =
+        await supabaseClient.auth.exchangeCodeForSession(
+            window.location.href
+        );
+
+
+    if(error)
+    {
+        console.log(error.message);
+    }
+}
+
+
+getSessionFromUrl();
+
+
 
 async function resetPassword()
 {
-
     const password =
     document.getElementById("password").value;
 
@@ -26,7 +48,6 @@ async function resetPassword()
     document.getElementById("message");
 
 
-
     if(password !== confirmPassword)
     {
         message.innerHTML =
@@ -34,17 +55,6 @@ async function resetPassword()
 
         return;
     }
-
-
-
-    if(password.length < 6)
-    {
-        message.innerHTML =
-        "Password must be at least 6 characters";
-
-        return;
-    }
-
 
 
     const { error } =
@@ -63,7 +73,18 @@ async function resetPassword()
     else
     {
         message.innerHTML =
-        "Password updated successfully. You can login now.";
+        "Password updated successfully";
+
+        document.getElementById("openApp")
+        .style.display = "block";
     }
 
+}
+
+
+
+function openApp()
+{
+    window.location.href =
+    "smartqueue:login";
 }
